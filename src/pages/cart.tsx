@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { StateProps, StoreProduct } from '../../type';
 import ResetCart from '@/components/ResetCart';
 
-function cart() {
+function Cart() {
   {/* LOADING CARTDATA */}
   const { cartData } = useSelector((state:StateProps) => state.next);
   return (
@@ -55,4 +55,4 @@ function cart() {
   )
 }
 
-export default cart
+export default Cart

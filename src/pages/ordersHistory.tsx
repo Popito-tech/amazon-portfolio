@@ -9,7 +9,7 @@ interface Props{
   orders:OrdersType;
 }
 
-function ordersHistory({orders}:Props) {
+function OrdersHistory({orders}:Props) {
     const { data: session } = useSession();
     console.log('items from strupe :',orders)
   return (
@@ -39,7 +39,7 @@ function ordersHistory({orders}:Props) {
   )
 }
 
-export default ordersHistory
+export default OrdersHistory
 
 export async function getServerSideProps(context:any){
     const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);

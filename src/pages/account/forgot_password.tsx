@@ -2,7 +2,7 @@ import { FormEvent, useState, useRef } from 'react'
 import { useRouter } from 'next/router';
 
 
-const forgot_password: React.FC = () => {
+const Forgot_password: React.FC = () => {
   const router = useRouter();
     const [email, setEmail] = useState("");
     const formRef = useRef<HTMLFormElement | null>(null);
@@ -79,4 +79,4 @@ const forgot_password: React.FC = () => {
   )
 }
 
-export default forgot_password
+export default Forgot_password

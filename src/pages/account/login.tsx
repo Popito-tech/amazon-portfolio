@@ -1,6 +1,7 @@
 import { useState, FormEvent } from "react"
 import { useRouter } from "next/navigation"
 import {signIn} from 'next-auth/react'
+import Link from "next/link";
 
 
 export default function LoginPage() {
@@ -55,9 +56,9 @@ export default function LoginPage() {
             <label htmlFor="password" className="labelCustomStyle">
               Password
             </label>
-            <a href="/account/forgot_password" className="font-semibold text-sm text-indigo-600 hover:text-indigo-500">
+            <Link href="/account/forgot_password" className="font-semibold text-sm text-indigo-600 hover:text-indigo-500">
               Forgot password?
-            </a>
+            </Link>
           </div>
           <input id="password" name="password" type="password" required
           onChange={(e) => setPassword(e.target.value)}
