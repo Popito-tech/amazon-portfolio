@@ -1,6 +1,6 @@
 import { connectMongoDB } from'../../../lib/mongodb'
 import User from '../../../models/user'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { generateToken } from "../../../utils/token"
 import sendEmail from "../../../utils/sendEmail"

@@ -1,6 +1,7 @@
 import User from "../../../models/user";
 import {verifyToken} from '../../../utils/token'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
+//BIG CACA
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
