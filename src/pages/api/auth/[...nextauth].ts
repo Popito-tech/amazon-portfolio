@@ -26,7 +26,7 @@ export const authOptions = {
     CredentialsProvider({
       name: "credentials",
       credentials: {},
-      async authorize(credentials:Credentials) {
+      async authorize(credentials:any) {
         const { email, password } = credentials;
         try {
           await connectMongoDB();
