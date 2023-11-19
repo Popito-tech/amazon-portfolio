@@ -40,3 +40,7 @@ export interface StateProps {
     timestamp:any;
     map:any;
   }
+
+  export interface Id{
+  id:number
+  }

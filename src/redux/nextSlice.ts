@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction  } from '@reduxjs/toolkit'
-import { StoreProduct, ProductProps } from '../../type';
+import { StoreProduct, ProductProps, Id } from '../../type';
 
 export const fetchTodo = createAsyncThunk<ProductProps[]>('fetchTodo', async () => {
   try {
@@ -34,7 +34,7 @@ export const nextSlice = createSlice({
     name:'next',
     initialState,
     reducers:{
-        addToCart: (state, action: PayloadAction<StoreProduct>) => {
+        addToCart: (state, action: PayloadAction<Id>) => {
             const productWanted = state.cartData.find(
               (item: StoreProduct) => item.id === action.payload.id
             );
