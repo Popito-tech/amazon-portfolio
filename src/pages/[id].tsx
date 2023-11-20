@@ -45,7 +45,7 @@ function DynamicPage() {
           onClick={()=>dispatch(addToCart({
           id:id,
             }))}
-            className='w-full md:w-72 button mt-5'>add to cart{id}</button>
+            className='w-full md:w-72 button h-10 mt-5'>add to cart{id}</button>
           </div>
         </div>
 
