@@ -6,13 +6,6 @@ import { connectMongoDB } from "../../../../lib/mongodb";
 import User from "../../../../models/user";
 import bcrypt from "bcryptjs";
 
-
-
-interface Credentials {
-  email: string;
-  password: string;
-}
-
 export const authOptions = {
   providers: [
     GithubProvider({
@@ -26,8 +19,11 @@ export const authOptions = {
     CredentialsProvider({
       name: "credentials",
       credentials: {},
-      async authorize(credentials:any) {
-        const { email, password } = credentials;
+      async authorize(credentials) {
+        const { email, password } = credentials as {
+          email: string;
+          password: string;
+        };
         try {
           await connectMongoDB();
           const user = await User.findOne({ email });

@@ -23,6 +23,7 @@ export default function LoginPage() {
       {/* ERROR MESSAGES */}
       if (res?.error) {
         setError("Invalid Credentials");
+        console.log('res.error :', res.error)
         return;
       }
         router.replace("/");
