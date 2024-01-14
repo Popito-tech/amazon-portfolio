@@ -27,36 +27,31 @@ const Products = ({storeProduct}:Props) => {
     <div className='w-full px-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6'>
 
       {storeProduct.map(({id, title, price, description, image})=>(
-        <div key={id} className='w-full bg-white  text-black p-4 border border-gray-300 rounded-lg group overflow-hidden'>
+                    <Link href={{pathname:`/${id}`, query:{
+                      id:id, title:title, price:price,
+                      description:description, image:image,}}}>
+        <div key={id} className='w-full bg-white  text-black p-4 border-2 border-gray-400 rounded-lg group overflow-hidden hover:border-black'>
 
           {/* PRODUCT IMAGE */}
           <div className='cursor-pointer'>
-            <Link href={{pathname:`/${id}`, query:{
-            id:id, title:title, price:price,
-            description:description, image:image,}}}>
-              <Image className='w-auto h-48 mx-auto' 
+              <Image className='w-auto h-48 mx-auto my-8' 
               width={300} height={300} 
               src={image} alt='productImage'/>
-            </Link>
           </div>
 
-          <hr/>
 
-          <div className='px-4 py-3 flex flex-col gap-1'>
+
+          <div className='px-0 py-3 flex flex-col gap-1'>
             {/* TITLE, PRICE, DESCRIPTION */}
-            <p className='cursor-pointer text-base font-medium line-clamp-1'>{title}</p>
+            <p className='cursor-pointer text-base line-clamp-1 mb-2'>{title}</p>
             <p className='flex items-center gap-2'>
-              <span className='text-amazon_blue font-semibold'>{currency.format(price)}</span>
+              <span className='text-amazon_blue font-semibold mb-0'>{currency.format(price)}</span>
             </p>
-            <p className='text-xs text-gray-600 text-justify line-clamp-3'>{description}</p>
             {/* BUTTON ADD TO CART */}
-            <button 
-            className='h-10 button'
-            onClick={()=>dispatch(addToCart({
-              id:id,
-            }))}>add to cart</button>
           </div>
+          
         </div>
+        </Link>
   ))
   }
   </div>
