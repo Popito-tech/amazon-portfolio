@@ -27,7 +27,7 @@ const Products = ({storeProduct}:Props) => {
     <div className='w-full px-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6'>
 
       {storeProduct.map(({id, title, price, description, image})=>(
-                    <Link href={{pathname:`/${id}`, query:{
+                    <Link key={id} href={{pathname:`/${id}`, query:{
                       id:id, title:title, price:price,
                       description:description, image:image,}}}>
         <div key={id} className='w-full bg-white  text-black p-4 border-2 border-gray-400 rounded-lg group overflow-hidden hover:border-black'>
