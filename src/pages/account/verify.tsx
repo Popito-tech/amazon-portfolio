@@ -10,7 +10,9 @@ export default VerifyPage
 
 
 export const getServerSideProps: GetServerSideProps = async ({ query: { token } }) => {
+  const TIMEOUT_MS = 2000;
   try {
+    await connectMongoDB();
     console.log('Start getServerSideProps');
 
     const { user } = verifyToken(token);
@@ -20,7 +22,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query: { token } 
     console.log('User exists:', userExist);
 
     if (!userExist) {
-      await connectMongoDB();
+      
       await User.create(user);
       console.log('User created:', user);
     }
