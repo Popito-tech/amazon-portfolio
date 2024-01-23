@@ -1,5 +1,6 @@
 import { addToCart } from '@/redux/nextSlice';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router'
 import React, {useState, useEffect} from 'react'
 import { useDispatch } from 'react-redux';
@@ -41,11 +42,11 @@ function DynamicPage() {
           <div>
           <p className='text-base text-gray-600 flex items-center gap-1'>Price:<span className='text-lg text-amazon_blue font-semibold'>{f.format(product.price)}</span></p>
           {/* BUTTON ADD TO CART */}
-          <button 
-          onClick={()=>dispatch(addToCart({
-          id:id,
-            }))}
-            className='w-full md:w-72 button h-10 mt-5'>add to cart</button>
+          <Link href="/" onClick={() => dispatch(addToCart({ id: id }))}>
+        <button className='w-full md:w-72 button h-10 mt-5'>
+          Add to Cart
+        </button>
+      </Link>
           </div>
         </div>
 

@@ -87,12 +87,11 @@ function CartProduct({item}:Props) {
           </div>
         </div>
         {/* PRICE X QUANTITY */}
-        <div className="text-lg font-semibold text-amazon_blue ml-auto">
+        <div className="hidden md:flex text-lg font-semibold text-amazon_blue ml-auto">
         {f.format(item.price* item.quantity)}
         </div>
       </div>
     </div>
   )
 }
-
 export default CartProduct

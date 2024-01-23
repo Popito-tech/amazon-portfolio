@@ -2,9 +2,16 @@ import { verifyToken } from "../../../utils/token"
 import { connectMongoDB } from '../../../lib/mongodb'
 import User from '../../../models/user'
 import { GetServerSideProps } from 'next';
+import Link from "next/link";
 
 const VerifyPage: React.FC = () => {
-  return <div>Verify page.</div>;
+  return <div className="flex flex-col items-center">
+    <div className=" mt-8 font-medium text-xl">Your adress mail has been successfully verified</div>;
+  <Link href={"/"}>
+  <button className="w-52 button h-10 mb-8">
+    go to shopping
+  </button>
+</Link></div>
 };
 export default VerifyPage
 
