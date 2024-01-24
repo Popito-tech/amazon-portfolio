@@ -8,10 +8,11 @@ import Link from 'next/link'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
-import { addUser } from '@/redux/nextSlice'
+import { addToCart, addUser, decreaseQuantity, deleteProduct, increaseQuantity, removeUser, resetCart } from '@/redux/nextSlice'
 import { useRouter } from "next/router";
 import SearchProducts from '@/components/SearchProducts'
 import { StateProps, StoreProduct } from '../../../../type'
+import { channel } from '@/components/broadcastChannel'
 
 const Header = () => {
   const { data: session } = useSession()
@@ -19,6 +20,41 @@ const Header = () => {
   const dispatch = useDispatch();
   const {cartData, userInfo, data}=useSelector((state:StateProps)=>state.next);
   const [cartItemsQuantity, setcartItemsQuantity] = useState(0);
+
+
+  channel.onmessage = (event) => { //communicate redux state between all tabs
+    const { type, payload } = event.data;
+    switch (type) {
+      case 'ADD_TO_CART':
+        dispatch(addToCart({ id: payload.id }))  
+        break;
+      case 'INCREASE_QUANTITY':
+        dispatch(increaseQuantity({ id: payload.id }));
+        console.log('la quantity est increased !')
+        break;
+      case 'DECREASE_QUANTITY':
+        dispatch(decreaseQuantity({ id: payload.id }));
+        console.log('la quantity est diminuer !')
+        break;
+      case 'DELETE_PRODUCT':
+        dispatch(deleteProduct( payload ));
+        console.log('Le product est deleted !')
+        break;
+       case 'RESET_CART':
+        dispatch(resetCart());
+        console.log('Le cart est reset !')
+        break;
+      case 'ADD_USER':
+        dispatch(addUser(payload));
+        console.log('voici payload :', payload)
+        break;
+      case 'REMOVE_USER':
+        dispatch(removeUser());
+        console.log('user removed')
+        break;
+    }
+  };
+
 
     {/* DEFINING NUMBER OF ITEMS IN THE CART */}
     useEffect(() => {
@@ -40,6 +76,14 @@ const Header = () => {
             image: session?.user?.image,
           })
         );
+        channel.postMessage({
+          type: 'ADD_USER',
+          payload: {
+            name: session?.user?.name,
+            email: session?.user?.email,
+            image: session?.user?.image,
+          },
+        });
       }
     }, [session]);
 

@@ -6,6 +6,7 @@ import { IoMdClose } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { decreaseQuantity, deleteProduct, increaseQuantity } from "@/redux/nextSlice";
 import { StoreProduct } from "../../type";
+import { channel } from "./broadcastChannel";
 
 interface Props{
   item:StoreProduct;
@@ -41,18 +42,10 @@ function CartProduct({item}:Props) {
             <div className="flex items-center mt-1 justify-between border border-gray-300 px-4 py-1 rounded-full w-28 shadow-lg shadow-gray-300">
               {/* INCREASE BUTTON */}
               <span
-                onClick={() =>
-                  dispatch(
-                    increaseQuantity({
-                        id:item.id,
-                        title:item.title,
-                        price:item.price,
-                        description:item.description,
-                        image:item.image,
-                        quantity:1,
-                    })
-                  )
-                }
+            onClick={() => {
+              dispatch(increaseQuantity({ id: item.id }));
+              channel.postMessage({ type: 'INCREASE_QUANTITY', payload: { id: item.id } });
+            }}
                 className="w-6 h-6 flex items-center justify-center rounded-full text-base bg-transparent hover:bg-gray-300 cursor-pointer decoration-purple-300"
               >
                 <LuPlus />
@@ -60,18 +53,10 @@ function CartProduct({item}:Props) {
               <span>{item.quantity}</span>
               {/* DECREASE BUTTON */}
               <span
-                onClick={() =>
-                  dispatch(
-                    decreaseQuantity({
-                        id:item.id,
-                        title:item.title,
-                        price:item.price,
-                        description:item.description,
-                        image:item.image,
-                        quantity:1,
-                    })
-                  )
-                }
+            onClick={() => {
+              dispatch(decreaseQuantity({ id: item.id }));
+              channel.postMessage({ type: 'DECREASE_QUANTITY', payload: { id: item.id } });
+            }}
                 className="w-6 h-6 flex items-center justify-center rounded-full text-base bg-transparent hover:bg-gray-300 cursor-pointer decoration-purple-300"
               >
                 <LuMinus />
@@ -79,7 +64,10 @@ function CartProduct({item}:Props) {
             </div>
             {/* DELETE BUTTON */}
             <div
-              onClick={() => dispatch(deleteProduct(item.id))}
+            onClick={() => {
+              dispatch(deleteProduct(item.id))
+              channel.postMessage({ type: 'DELETE_PRODUCT', payload:  item.id  });
+            }}
               className="flex items-center text-sm font-medium text-gray-400 hover:text-red-600 cursor-pointer duration-300"
             >
               <IoMdClose className="mt-[2px]" /> <p>remove</p>

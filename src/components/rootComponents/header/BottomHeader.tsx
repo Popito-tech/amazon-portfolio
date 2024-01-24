@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { signOut } from "next-auth/react";
 import { removeUser } from '@/redux/nextSlice';
 import { StateProps } from '../../../../type';
+import { channel } from '@/components/broadcastChannel';
 
 
 const BottomHeader = () => {
@@ -13,6 +14,7 @@ const BottomHeader = () => {
   const handleSignOut = () => {
     signOut();
     dispatch(removeUser());
+    channel.postMessage({ type: 'REMOVE_USER'});
   };
 
   return (

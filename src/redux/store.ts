@@ -1,5 +1,5 @@
-import { configureStore, createSerializableStateInvariantMiddleware } from '@reduxjs/toolkit';
-import nextReducer from './nextSlice';
+import { configureStore } from '@reduxjs/toolkit'
+import nextReducer from './nextSlice'
 import {
   persistStore,
   persistReducer,
@@ -9,24 +9,17 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import { PersistGate } from 'redux-persist/integration/react';
-import { createStateSyncMiddleware, initStateWithPrevTab } from 'redux-state-sync';
+} from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+import { PersistGate } from 'redux-persist/integration/react'
 
 const persistConfig = {
-  key: 'cccccccccccc',
+  key: "cccccccccccc",
   version: 1,
   storage,
 };
 
 const persistedReducer = persistReducer(persistConfig, nextReducer);
-
-const stateSyncConfig = {
-  blacklist: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-};
-
-const syncMiddleware = createStateSyncMiddleware(stateSyncConfig);
 
 export const store = configureStore({
   reducer: { next: persistedReducer },
@@ -35,15 +28,13 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat([syncMiddleware]),
+    }),
 });
-
-// Initialize state with the previous tab's state
-initStateWithPrevTab(store);
 
 export let persistor = persistStore(store);
 
+
 // Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof store.getState>
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-export type AppDispatch = typeof store.dispatch;
+export type AppDispatch = typeof store.dispatch

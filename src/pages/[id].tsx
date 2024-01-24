@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router'
 import React, {useState, useEffect} from 'react'
 import { useDispatch } from 'react-redux';
+import { channel } from '@/components/broadcastChannel';
 
 function DynamicPage() {
     const [product, setProduct]=useState<any>({});
@@ -21,6 +22,14 @@ function DynamicPage() {
       currency:'USD',
       style: 'currency',
     });
+
+    const handleClick = () => {
+      // Dispatch the addToCart action
+      dispatch(addToCart({ id: id }));
+  
+      // Post the message to the channel
+      channel.postMessage({ type: 'ADD_TO_CART', payload: { id } });
+    };
 
   return (
     <div className='max-w-screen-xl mx-auto px-4 py-4 md:py-10'>
@@ -42,7 +51,7 @@ function DynamicPage() {
           <div>
           <p className='text-base text-gray-600 flex items-center gap-1'>Price:<span className='text-lg text-amazon_blue font-semibold'>{f.format(product.price)}</span></p>
           {/* BUTTON ADD TO CART */}
-          <Link href="/" onClick={() => dispatch(addToCart({ id: id }))}>
+          <Link href="/" onClick={handleClick}>
         <button className='w-full md:w-72 button h-10 mt-5'>
           Add to Cart
         </button>

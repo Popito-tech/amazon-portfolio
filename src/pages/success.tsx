@@ -2,6 +2,7 @@ import { resetCart } from "@/redux/nextSlice";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { channel } from "@/components/broadcastChannel";
 
 
 
@@ -9,6 +10,7 @@ const Success = () => {
     const dispatch = useDispatch();
     useEffect(() => {
       dispatch(resetCart());
+      channel.postMessage({ type: 'RESET_CART'});
   }, [dispatch]);
   return (
     <div className="flex flex-col gap-2 items-center justify-center py-20">

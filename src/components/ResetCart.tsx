@@ -1,6 +1,7 @@
 
 import { resetCart } from "@/redux/nextSlice";
 import { useDispatch } from "react-redux";
+import { channel } from "./broadcastChannel";
 
 const ResetCart = () => {
   const dispatch = useDispatch();
@@ -10,6 +11,7 @@ const ResetCart = () => {
     );
     if (confirmReset) {
       dispatch(resetCart());
+      channel.postMessage({ type: 'RESET_CART'});
     }
   };
   return (

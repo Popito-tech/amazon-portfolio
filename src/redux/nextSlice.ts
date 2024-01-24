@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction  } from '@reduxjs/toolkit'
 import { StoreProduct, ProductProps, Id } from '../../type';
+import { channel } from '@/components/broadcastChannel';
 
 export const fetchTodo = createAsyncThunk<ProductProps[]>('fetchTodo', async () => {
   try {
